@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale-1.0">
+        <title>File Upload</title>
+        <!-- add to document <head> -->
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+        <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', ()=> {
+                FilePond.registerPlugin(
+                    FilePondPluginFileEncode,
+                    FilePondPluginImagePreview,
+                    FilePondPluginImageResize  
+                );
+                FilePond.setOptions({
+                    stylePaneAspectRatio:150/100,
+                    imageResizeTargetWidth:100,
+                    imageResizeTargetHeight:150,
+                });
+                FilePond.parse(document.body);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="ui pointing menu">
+            <a class="active item">
+              Home
+            </a>
+            <a class="item">
+              Messages
+            </a>
+            <a class="item">
+              Friends
+            </a>
+            <div class="right menu">
+              <div class="item">
+                <div class="ui transparent icon input">
+                  <input type="text" placeholder="Search...">
+                  <i class="search link icon"></i>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class="ui container">
+            <form action="/add" class="ui form" method="POST">
+                <div class="ui fields two">
+                    <div class="field">
+                        <label for="">Name</label>
+                        <input type="text" name="name" id="">
+                    </div>
+                    <div class="field">
+                        <label for="">Type</label>
+                        <select name="type" id="">
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="action">Action</option>
+                            <option value="animation">Animated</option>
+                            <option value="si-fi">Sci-Fi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ui field">
+                    <label for="img">Image</label>
+                    <input type="file" class="filepond ui image small" name="img" id="">
+                </div>
+                <div class="ui field">
+                    <button class="ui button green" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <%  if(movies){ %>
+            
+                <div class="ui images">
+                    <% movies.forEach(movie => { %>
+                        <img src="<%= movie.imgSrc %>" alt="images" class="ui image small">
+                        <% }) %>
+                </div>
+            
+        <% } %>
+        
+    </body>
+</html>
